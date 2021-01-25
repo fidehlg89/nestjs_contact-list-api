@@ -49,12 +49,12 @@ export class AppController {
     });
   }
 
-  @Get('contact/:id')
+  @Get('contacts/:id')
   async getContactById(@Param('id') id: string): Promise<ContactModel> {
     return this.contactService.contact({ id: Number(id) });
   }
 
-  @Post('contact')
+  @Post('contacts')
   async addContact(@Body() contentData: { name?: string; address: string; phone: string, email: string },
   ): Promise<ContactModel> {
     const { name, address, phone, email } = contentData;
@@ -66,7 +66,7 @@ export class AppController {
     });
   }
 
-  @Put('contact/:id')
+  @Put('contacts/:id')
   async editContact(@Param('id') id: string, @Body()  contentData: {
     name?: string; address: string; phone: string, email: string }):
     Promise<ContactModel> {
@@ -82,7 +82,7 @@ export class AppController {
     });
   }
 
-  @Delete('contact/:id')
+  @Delete('contacts/:id')
   async deleteContact(@Param('id') id: string): Promise<ContactModel> {
     return this.contactService.deleteContact({ id: Number(id) });
   }
