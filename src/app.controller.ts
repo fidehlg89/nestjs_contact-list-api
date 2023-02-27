@@ -12,16 +12,21 @@ import { Contact as ContactModel } from '@prisma/client';
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly contactService: ContactService,
-  ) {}
+
+
+  constructor(private readonly contactService: ContactService) {}
+
+  //Contact Endpoint
+  @Get('/')
+  async home() {
+    return "Hola a la API de contactos";
+  }
 
   //Contact Endpoint
   @Get('contacts/')
   async getContacts(): Promise<ContactModel[]> {
     return this.contactService.contacts({
-        where: { id: { not: 0 },
-      },
+      where: { id: { not: 0 } },
     });
   }
 
@@ -55,21 +60,35 @@ export class AppController {
   }
 
   @Post('contacts')
-  async addContact(@Body() contentData: { name?: string; address: string; phone: string, email: string },
+  async addContact(
+    @Body()
+    contentData: {
+      name?: string;
+      address: string;
+      phone: string;
+      email: string;
+    },
   ): Promise<ContactModel> {
     const { name, address, phone, email } = contentData;
     return this.contactService.createContact({
       name,
       address,
       phone,
-      email
+      email,
     });
   }
 
   @Put('contacts/:id')
-  async editContact(@Param('id') id: string, @Body()  contentData: {
-    name?: string; address: string; phone: string, email: string }):
-    Promise<ContactModel> {
+  async editContact(
+    @Param('id') id: string,
+    @Body()
+    contentData: {
+      name?: string;
+      address: string;
+      phone: string;
+      email: string;
+    },
+  ): Promise<ContactModel> {
     const { name, address, phone, email } = contentData;
     return this.contactService.updateContact({
       where: { id: Number(id) },
@@ -77,7 +96,7 @@ export class AppController {
         name,
         address,
         phone,
-        email
+        email,
       },
     });
   }

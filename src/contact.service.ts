@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from './prisma.service';
-import {
-  Contact,
-  Prisma,
-} from '@prisma/client';
+import { Contact, Prisma } from '@prisma/client';
 
 @Injectable()
 export class ContactService {
   constructor(private prisma: PrismaService) {}
 
-  async contact(contactWhereUniqueInput: Prisma.ContactWhereUniqueInput): Promise<Contact | null> {
+  async contact(
+    contactWhereUniqueInput: Prisma.ContactWhereUniqueInput,
+  ): Promise<Contact | null> {
     return this.prisma.contact.findUnique({
       where: contactWhereUniqueInput,
     });
@@ -20,7 +19,7 @@ export class ContactService {
     take?: number;
     cursor?: Prisma.ContactWhereUniqueInput;
     where?: Prisma.ContactWhereInput;
-    orderBy?: Prisma.ContactOrderByInput;
+    orderBy?: Prisma.ContactOrderByWithRelationInput;
   }): Promise<Contact[]> {
     const { skip, take, cursor, where, orderBy } = params;
     return this.prisma.contact.findMany({

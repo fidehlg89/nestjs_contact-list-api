@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:node_contact-list-api}/prisma/dev.db",
+            "name": "SQLite node list"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
